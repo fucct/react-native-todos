@@ -1,4 +1,4 @@
-import { Button, FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Filter from './Filter';
@@ -49,8 +49,7 @@ const TodoList = ({ filter, todo, toggleTodo, editTodo, toggleFilter, onEdit, on
           onPress={() => onDelete(item)}
         />
       </TouchableOpacity>
-    )
-      ;
+    );
   };
 
   return (

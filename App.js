@@ -6,36 +6,35 @@ import TodoInput from './component/TodoInput';
 export default function App() {
   const [todo, setTodo] = useState([]);
   const [filter, setFilter] = useState('all');
-  const [modalVisible, setModalVisible] = useState(false);
+  const [currentId, setCurrentId] = useState(1);
 
   const onSubmit = (input, setInput) => {
     if (!input.trim()) {
       return;
     }
-    const index = String(todo.length + 1);
     const newTodo = {
-      id: index,
+      id: String(currentId),
+      index: todo.length,
       checked: false,
       editable: false,
       itemName: input,
     };
     setTodo([...todo, newTodo]);
     setInput('');
+    setCurrentId(currentId + 1);
   };
 
   const toggleTodo = (item) => {
     const newItem = { ...item, checked: !item.checked };
-    const index = Number(newItem.id) - 1;
     const newTodos = [...todo];
-    newTodos.splice(index, 1, newItem);
+    newTodos.splice(item.index, 1, newItem);
     setTodo(newTodos);
   };
 
   const editTodo = (item) => {
     const newItem = { ...item, editable: !item.editable };
-    const index = Number(newItem.id) - 1;
     const newTodos = [...todo];
-    newTodos.splice(index, 1, newItem);
+    newTodos.splice(item.index, 1, newItem);
     setTodo(newTodos);
   };
 
@@ -45,6 +44,7 @@ export default function App() {
     }
     const newTodo = {
       id: item.id,
+      index: item.index,
       checked: item.checked,
       editable: false,
       itemName: input,
@@ -57,7 +57,7 @@ export default function App() {
 
   const onDelete = (item) => {
     const newTodos = [...todo];
-    newTodos.splice(item.id - 1, 1);
+    newTodos.splice(item.index, 1);
     setTodo(newTodos);
   };
 
@@ -79,8 +79,6 @@ export default function App() {
           toggleTodo={toggleTodo}
           editTodo={editTodo}
           toggleFilter={toggleFilter}
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
           onEdit={onEdit}
           onDelete={onDelete}
         />
