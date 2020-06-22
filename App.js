@@ -3,7 +3,7 @@ import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import TodoList from './component/TodoList';
 import TodoInput from './component/TodoInput';
 
-export default function App() {
+const App = () => {
   const [todo, setTodo] = useState([]);
   const [filter, setFilter] = useState('all');
   const [currentId, setCurrentId] = useState(1);
@@ -14,7 +14,6 @@ export default function App() {
     }
     const newTodo = {
       id: String(currentId),
-      index: todo.length,
       checked: false,
       editable: false,
       itemName: input,
@@ -27,14 +26,14 @@ export default function App() {
   const toggleTodo = (item) => {
     const newItem = { ...item, checked: !item.checked };
     const newTodos = [...todo];
-    newTodos.splice(item.index, 1, newItem);
+    newTodos.splice(todo.indexOf(item), 1, newItem);
     setTodo(newTodos);
   };
 
   const editTodo = (item) => {
     const newItem = { ...item, editable: !item.editable };
     const newTodos = [...todo];
-    newTodos.splice(item.index, 1, newItem);
+    newTodos.splice(todo.indexOf(item), 1, newItem);
     setTodo(newTodos);
   };
 
@@ -44,20 +43,19 @@ export default function App() {
     }
     const newTodo = {
       id: item.id,
-      index: item.index,
       checked: item.checked,
       editable: false,
       itemName: input,
     };
     const newTodos = [...todo];
-    newTodos.splice(item.id - 1, 1, newTodo);
+    newTodos.splice(todo.indexOf(item), 1, newTodo);
     setTodo(newTodos);
     setInput('');
   };
 
   const onDelete = (item) => {
     const newTodos = [...todo];
-    newTodos.splice(item.index, 1);
+    newTodos.splice(todo.indexOf(item), 1);
     setTodo(newTodos);
   };
 
@@ -109,3 +107,5 @@ const styles = StyleSheet.create({
     fontWeight: '100',
   },
 });
+
+export default App;
