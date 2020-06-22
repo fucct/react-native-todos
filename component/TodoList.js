@@ -1,9 +1,9 @@
-import { FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Button, FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Filter from './Filter';
 
-const TodoList = ({ filter, todo, toggleTodo, editTodo, toggleFilter, onEdit }) => {
+const TodoList = ({ filter, todo, toggleTodo, editTodo, toggleFilter, onEdit, onDelete }) => {
   const [updatedInput, setUpdatedInput] = useState('');
   let filteredTodo;
 
@@ -41,8 +41,16 @@ const TodoList = ({ filter, todo, toggleTodo, editTodo, toggleFilter, onEdit }) 
           editable={item.editable}
           value={item.editable ? updatedInput : item.itemName}
         />
+        <MaterialCommunityIcons
+          style={styles.deleteButton}
+          name='trash-can-outline'
+          size={20}
+          color="gray"
+          onPress={() => onDelete(item)}
+        />
       </TouchableOpacity>
-    );
+    )
+      ;
   };
 
   return (
@@ -83,5 +91,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     opacity: 1,
   },
+  deleteButton: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginLeft: 'auto',
+    width: 50,
+    height: 20,
+    borderColor: 'gray',
+  },
+
+
 });
 export default TodoList;

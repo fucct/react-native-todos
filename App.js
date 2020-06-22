@@ -50,10 +50,16 @@ export default function App() {
       itemName: input,
     };
     const newTodos = [...todo];
-    newTodos.splice(item.id-1, 1, newTodo);
+    newTodos.splice(item.id - 1, 1, newTodo);
     setTodo(newTodos);
     setInput('');
-  }
+  };
+
+  const onDelete = (item) => {
+    const newTodos = [...todo];
+    newTodos.splice(item.id - 1, 1);
+    setTodo(newTodos);
+  };
 
   const toggleFilter = (filterValue) => {
     setFilter(filterValue);
@@ -76,6 +82,7 @@ export default function App() {
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
           onEdit={onEdit}
+          onDelete={onDelete}
         />
       </View>
     </SafeAreaView>
