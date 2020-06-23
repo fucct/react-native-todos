@@ -8,18 +8,19 @@ const App = () => {
   const [filter, setFilter] = useState('all');
   const nextId = useRef(1);
 
-  const onSubmit = (input, setInput) => {
+
+  const onCreate = (input, setInput) => {
     if (!input.trim()) {
       alert('공백은 입력하실 수 없습니다. 😭');
       return;
     }
-    const createTodo = {
+    const newTodo = {
       id: String(nextId.current),
       checked: false,
       editable: false,
       itemName: input,
     };
-    setTodo([...todo, createTodo]);
+    setTodo([...todo, newTodo]);
     setInput('');
     nextId.current += 1;
   };
@@ -71,7 +72,7 @@ const App = () => {
         <Text style={styles.title}>TODOS</Text>
       </View>
       <View style={styles.contentContainer}>
-        <TodoInput onSubmit={onSubmit} />
+        <TodoInput onSubmit={onCreate} />
         <TodoList
           filter={filter}
           todo={todo}
