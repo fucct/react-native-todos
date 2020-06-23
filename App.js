@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import TodoList from './component/TodoList';
 import TodoInput from './component/TodoInput';
@@ -6,24 +6,25 @@ import TodoInput from './component/TodoInput';
 const App = () => {
   const [todo, setTodo] = useState([]);
   const [filter, setFilter] = useState('all');
-  const [currentId, setCurrentId] = useState(1);
+  const nextId = useRef(1);
 
   const onSubmit = (input, setInput) => {
     if (!input.trim()) {
+      alert('공백은 입력하실 수 없습니다. 😭');
       return;
     }
-    const newTodo = {
-      id: String(currentId),
+    const createTodo = {
+      id: String(nextId.current),
       checked: false,
       editable: false,
       itemName: input,
     };
-    setTodo([...todo, newTodo]);
+    setTodo([...todo, createTodo]);
     setInput('');
-    setCurrentId(currentId + 1);
+    nextId.current += 1;
   };
 
-  const toggleTodo = (item) => {
+  const checkTodo = (item) => {
     const newItem = { ...item, checked: !item.checked };
     const newTodos = [...todo];
     newTodos.splice(todo.indexOf(item), 1, newItem);
@@ -74,7 +75,7 @@ const App = () => {
         <TodoList
           filter={filter}
           todo={todo}
-          toggleTodo={toggleTodo}
+          toggleTodo={checkTodo}
           editTodo={editTodo}
           toggleFilter={toggleFilter}
           onEdit={onEdit}
@@ -83,7 +84,7 @@ const App = () => {
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
