@@ -60,7 +60,7 @@ const TodoItem = ({ item }) => {
       <TextInput
         style={{
           ...styles.todo,
-          backgroundColor: item.editable ? '#76b9cd' : '#d1f0ff',
+          backgroundColor: item.editable ? '#cfe1fd' : '#d1f0ff',
           textDecorationLine: item.checked ? 'line-through' : 'none',
         }}
         clearButtonMode="while-editing"
@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   todo: {
-    width: 70,
+    flex:1,
+    width: 100,
     height: 21,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
@@ -100,7 +101,6 @@ const styles = StyleSheet.create({
     fontWeight: '200',
     color: 'gray',
   },
-  toggle: {},
   container: {
     flex: 1,
     alignItems: 'center',

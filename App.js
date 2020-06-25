@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { useRecoilState } from 'recoil/dist';
 import TodoList from './component/TodoList';
 import TodoInput from './component/TodoInput';
 
@@ -15,6 +14,9 @@ const App = () => {
       <View style={styles.contentContainer}>
         <TodoInput />
         <TodoList />
+      </View>
+      <View style={styles.footerContainer}>
+        <Text style={styles.footerMessage}>항목을 길게 누르면 수정</Text>
       </View>
     </SafeAreaView>
   );
@@ -37,8 +39,17 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
+  footerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
     fontSize: 40,
+    fontWeight: '100',
+  },
+  footerMessage: {
+    fontSize: 20,
     fontWeight: '100',
   },
 });
