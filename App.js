@@ -3,52 +3,8 @@ import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { useRecoilState } from 'recoil/dist';
 import TodoList from './component/TodoList';
 import TodoInput from './component/TodoInput';
-import { todoFilterState, todoListState } from './component/atoms';
 
 const App = () => {
-  const [todo, setTodo] = useRecoilState(todoListState);
-  const [filter, setFilter] = useRecoilState(todoFilterState);
-  const nextId = useRef(1);
-
-  const checkTodo = (item) => {
-    const newItem = { ...item, checked: !item.checked };
-    const newTodos = [...todo];
-    newTodos.splice(todo.indexOf(item), 1, newItem);
-    setTodo(newTodos);
-  };
-
-  const editTodo = (item) => {
-    const newItem = { ...item, editable: !item.editable };
-    const newTodos = [...todo];
-    newTodos.splice(todo.indexOf(item), 1, newItem);
-    setTodo(newTodos);
-  };
-
-  const onEdit = (item, input, setInput) => {
-    if (!input.trim()) {
-      return;
-    }
-    const newTodo = {
-      id: item.id,
-      checked: item.checked,
-      editable: false,
-      itemName: input,
-    };
-    const newTodos = [...todo];
-    newTodos.splice(todo.indexOf(item), 1, newTodo);
-    setTodo(newTodos);
-    setInput('');
-  };
-
-  const onDelete = (item) => {
-    const newTodos = [...todo];
-    newTodos.splice(todo.indexOf(item), 1);
-    setTodo(newTodos);
-  };
-
-  const toggleFilter = (filterValue) => {
-    setFilter(filterValue);
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -58,15 +14,7 @@ const App = () => {
       </View>
       <View style={styles.contentContainer}>
         <TodoInput />
-        <TodoList
-          filter={filter}
-          todo={todo}
-          toggleTodo={checkTodo}
-          editTodo={editTodo}
-          toggleFilter={toggleFilter}
-          onEdit={onEdit}
-          onDelete={onDelete}
-        />
+        <TodoList />
       </View>
     </SafeAreaView>
   );

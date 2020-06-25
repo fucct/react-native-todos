@@ -1,21 +1,14 @@
 import { FlatList } from 'react-native';
 import React, { useMemo, useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil/dist';
 import Filter from './Filter';
 import TodoItem from './TodoItem';
+import { filteredTodoListState, todoFilterState, todoListState } from './atoms';
 
-const filteringTodo = (filter, todo) => {
-  if (filter === 'todo') {
-    return todo.filter(item => !item.checked);
-  }
-  if (filter === 'done') {
-    return todo.filter(item => item.checked);
-  }
-  return todo;
-};
-
-const TodoList = ({ filter, todo, toggleTodo, editTodo, toggleFilter, onEdit, onDelete }) => {
+const TodoList = ({ toggleTodo, editTodo, onEdit, onDelete }) => {
+  const [filter, setFilter] = useRecoilState(todoFilterState);
+  const filteredTodo = useRecoilValue(filteredTodoListState);
   const [updatedInput, setUpdatedInput] = useState('');
-  const filteredTodo = useMemo(() => filteringTodo(filter, todo), [filter, todo]);
 
   return (
     <FlatList
@@ -33,7 +26,7 @@ const TodoList = ({ filter, todo, toggleTodo, editTodo, toggleFilter, onEdit, on
       )}
       keyExtractor={item => item.id}
       ListFooterComponent={() => {
-        return <Filter filter={filter} todo={filteredTodo} toggleFilter={toggleFilter} />;
+        return <Filter filter={filter} todo={filteredTodo} toggleFilter={setFilter} />;
       }}
     />
   );
