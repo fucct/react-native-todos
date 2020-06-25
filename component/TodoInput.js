@@ -19,7 +19,7 @@ function TodoInput() {
         id: String(nextId.current),
         checked: false,
         editable: false,
-        itemName: input,
+        name: input,
       },
     ]);
     setInput('');

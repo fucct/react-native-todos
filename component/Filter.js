@@ -1,7 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { filteredTodoListState } from './atoms';
 
-const Filter = ({ filter, todo, toggleFilter }) => {
+const Filter = ({ filter, toggleFilter }) => {
+  const todo = useRecoilValue(filteredTodoListState);
+
   return (
     <View style={styles.listFooterContainer}>
       <View style={styles.countContainer}>

@@ -1,14 +1,55 @@
 import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import React from 'react';
+import React, { useState } from 'react';
+import { useRecoilState } from 'recoil/dist';
+import { todoListState } from './atoms';
 
-const TodoItem = ({ item, toggleTodo, editTodo, setUpdatedInput, onEdit, updatedInput, onDelete }) => {
+function replaceTodo(todo, index, updatedTodo) {
+  return [...todo.slice(0, index), updatedTodo, ...todo.slice(index + 1)];
+}
+
+const TodoItem = ({ item }) => {
+  const [todo, setTodo] = useRecoilState(todoListState);
+  const [input, setInput] = useState(item.name);
+  const index = todo.indexOf(item);
+
+  const toggleCheckTodo = () => {
+    const newTodo = { ...item, checked: !item.checked };
+    const newTodoList = replaceTodo(todo, index, newTodo);
+    setTodo(newTodoList);
+  };
+
+  const toggleEditTodo = () => {
+    const newTodo = { ...item, editable: !item.editable };
+    const newTodoList = replaceTodo(todo, index, newTodo);
+    setTodo(newTodoList);
+  };
+
+  const onEdit = () => {
+    if (!input.trim()) {
+      alert('공백은 입력하실 수 없습니다. 😭');
+      return;
+    }
+    const newTodo = {
+      ...item,
+      editable: false,
+      name: input,
+    };
+    const newTodoList = replaceTodo(todo, index, newTodo);
+    setTodo(newTodoList);
+  };
+
+  const onDelete = () => {
+    const newTodoList = [...todo.slice(0, index), ...todo.slice(index+1)];
+    setTodo(newTodoList);
+  };
+
   return (
     <TouchableOpacity
       key={item.id}
       style={styles.todoContainer}
-      onPress={() => toggleTodo(item)}
-      onLongPress={() => editTodo(item)}
+      onPress={toggleCheckTodo}
+      onLongPress={toggleEditTodo}
     >
       <MaterialCommunityIcons
         style={styles.toggle}
@@ -19,21 +60,21 @@ const TodoItem = ({ item, toggleTodo, editTodo, setUpdatedInput, onEdit, updated
       <TextInput
         style={{
           ...styles.todo,
-          backgroundColor: item.editable ? '#fafdff' : '#d1f0ff',
+          backgroundColor: item.editable ? '#76b9cd' : '#d1f0ff',
           textDecorationLine: item.checked ? 'line-through' : 'none',
         }}
         clearButtonMode="while-editing"
-        onChangeText={text => setUpdatedInput(text)}
-        onSubmitEditing={() => onEdit(item, updatedInput, setUpdatedInput)}
+        onChangeText={text => setInput(text)}
+        onSubmitEditing={onEdit}
         editable={item.editable}
-        value={item.editable ? updatedInput : item.itemName}
+        value={item.editable ? input : item.name}
       />
       <MaterialCommunityIcons
         style={styles.deleteButton}
         name='trash-can-outline'
         size={20}
         color="gray"
-        onPress={() => onDelete(item)}
+        onPress={onDelete}
       />
     </TouchableOpacity>
   );
