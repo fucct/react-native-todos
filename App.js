@@ -1,29 +1,14 @@
 import React, { useRef, useState } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { useRecoilState } from 'recoil/dist';
 import TodoList from './component/TodoList';
 import TodoInput from './component/TodoInput';
+import { todoFilterState, todoListState } from './component/atoms';
 
 const App = () => {
-  const [todo, setTodo] = useState([]);
-  const [filter, setFilter] = useState('all');
+  const [todo, setTodo] = useRecoilState(todoListState);
+  const [filter, setFilter] = useRecoilState(todoFilterState);
   const nextId = useRef(1);
-
-
-  const onCreate = (input, setInput) => {
-    if (!input.trim()) {
-      alert('공백은 입력하실 수 없습니다. 😭');
-      return;
-    }
-    const newTodo = {
-      id: String(nextId.current),
-      checked: false,
-      editable: false,
-      itemName: input,
-    };
-    setTodo([...todo, newTodo]);
-    setInput('');
-    nextId.current += 1;
-  };
 
   const checkTodo = (item) => {
     const newItem = { ...item, checked: !item.checked };
@@ -72,7 +57,7 @@ const App = () => {
         <Text style={styles.title}>TODOS</Text>
       </View>
       <View style={styles.contentContainer}>
-        <TodoInput onSubmit={onCreate} />
+        <TodoInput />
         <TodoList
           filter={filter}
           todo={todo}

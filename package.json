@@ -18,7 +18,8 @@
     "react-native-paper": "^3.10.1",
     "react-native-popup-menu": "^0.15.7",
     "react-native-simple-radio-button": "^2.7.4",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "~0.11.7",
+    "recoil": "^0.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

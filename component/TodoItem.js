@@ -2,7 +2,7 @@ import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 
-const TodoItem = ({ item, toggleTodo, editTodo,setUpdatedInput, onEdit, updatedInput, onDelete }) => {
+const TodoItem = ({ item, toggleTodo, editTodo, setUpdatedInput, onEdit, updatedInput, onDelete }) => {
   return (
     <TouchableOpacity
       key={item.id}
