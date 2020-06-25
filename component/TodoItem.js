@@ -60,7 +60,7 @@ const TodoItem = ({ item }) => {
       <TextInput
         style={{
           ...styles.todo,
-          backgroundColor: item.editable ? '#cfe1fd' : '#d1f0ff',
+          backgroundColor: item.editable ? '#f7fbff' : '#e4f6ff',
           textDecorationLine: item.checked ? 'line-through' : 'none',
         }}
         clearButtonMode="while-editing"
