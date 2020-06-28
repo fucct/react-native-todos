@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil/dist';
@@ -57,18 +57,20 @@ const TodoItem = ({ item }) => {
         size={20}
         color="gray"
       />
-      <TextInput
-        style={{
+      {item.editable? (
+        <TextInput
+          style={{
           ...styles.todo,
           backgroundColor: item.editable ? '#f7fbff' : '#e4f6ff',
           textDecorationLine: item.checked ? 'line-through' : 'none',
         }}
-        clearButtonMode="while-editing"
-        onChangeText={text => setInput(text)}
-        onSubmitEditing={onEdit}
-        editable={item.editable}
-        value={item.editable ? input : item.name}
-      />
+          clearButtonMode="while-editing"
+          onChangeText={text => setInput(text)}
+          onSubmitEditing={onEdit}
+          editable={item.editable}
+          value={item.editable ? input : item.name}
+        />
+    ) : <Text>{item.name}</Text>}
       <MaterialCommunityIcons
         style={styles.deleteButton}
         name='trash-can-outline'

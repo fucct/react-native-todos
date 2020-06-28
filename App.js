@@ -4,7 +4,6 @@ import TodoList from './component/TodoList';
 import TodoInput from './component/TodoInput';
 
 const App = () => {
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar hidden />
