@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil/dist';
+import { useRecoilValue } from 'recoil/dist';
 import { filteredTodoListState } from './atoms';
 
 const Filter = ({ filter, toggleFilter }) => {
@@ -13,18 +13,18 @@ const Filter = ({ filter, toggleFilter }) => {
       </View>
       <View style={styles.filters}>
         <TouchableOpacity
-          style={{ borderWidth: filter === 'all' ? 1 : 0, borderColor: 'gray' }}
+          style={{ borderWidth: filter === 'all' ? 1 : 0, borderColor: 'red' }}
           onPress={() => toggleFilter('all')}
         ><Text>전체 보기</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ borderWidth: filter === 'todo' ? 1 : 0, borderColor: 'gray' }}
+          style={{ borderWidth: filter === 'todo' ? 1 : 0, borderColor: 'red' }}
           onPress={() => toggleFilter('todo')}
         >
           <Text>해야할 일</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ borderWidth: filter === 'done' ? 1 : 0, borderColor: 'gray' }}
+          style={{ borderWidth: filter === 'done' ? 1 : 0, borderColor: 'red' }}
           onPress={() => toggleFilter('done')}
         >
           <Text>완료한 일</Text>

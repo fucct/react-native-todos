@@ -61,7 +61,7 @@ const TodoItem = ({ item }) => {
         <TextInput
           style={{
           ...styles.todo,
-          backgroundColor: item.editable ? '#f7fbff' : '#e4f6ff',
+          backgroundColor: '#e0efff',
           textDecorationLine: item.checked ? 'line-through' : 'none',
         }}
           clearButtonMode="while-editing"
@@ -70,7 +70,14 @@ const TodoItem = ({ item }) => {
           editable={item.editable}
           value={item.editable ? input : item.name}
         />
-    ) : <Text>{item.name}</Text>}
+    ) : (
+      <Text style={{...styles.todo,
+        color: item.checked? '#9ba1a7':'#08121d',
+        textDecorationLine: item.checked? 'line-through': 'none',
+      }}
+      >{item.name}
+      </Text>
+)}
       <MaterialCommunityIcons
         style={styles.deleteButton}
         name='trash-can-outline'
